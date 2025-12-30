@@ -31,6 +31,8 @@ from src.agents import (
     prompt_search,
     prompt_filters,
     prompt_sort,
+    handle_language_selection,
+    activate_voice_mode,
 )
 
 
@@ -62,6 +64,10 @@ def main():
             elif choice == 7:
                 handle_search_filter()
             elif choice == 8:
+                handle_change_language()
+            elif choice == 9:
+                handle_voice_mode()
+            elif choice == 10:
                 handle_quit()
                 break
         except KeyboardInterrupt:
@@ -214,3 +220,13 @@ def handle_quit():
     """Quit the application with auto-save."""
     save_tasks(list_tasks(), TASKS_PATH)
     display_goodbye()
+
+
+def handle_change_language():
+    """Handle language selection."""
+    handle_language_selection()
+
+
+def handle_voice_mode():
+    """Handle voice command mode."""
+    activate_voice_mode()

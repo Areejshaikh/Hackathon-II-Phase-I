@@ -39,6 +39,9 @@ from src.agents.cli_ui_agent import (
     prompt_sort,
 )
 
+from src.agents.i18n_agent import handle_language_selection, get_placeholder_message
+from src.agents.voice_agent import activate_voice_mode, get_voice_status
+
 __all__ = [
     # storage
     "load_tasks",
@@ -78,4 +81,10 @@ __all__ = [
     "prompt_search",
     "prompt_filters",
     "prompt_sort",
+    # i18n
+    "handle_language_selection",
+    "get_placeholder_message",
+    # voice
+    "activate_voice_mode",
+    "get_voice_status",
 ]

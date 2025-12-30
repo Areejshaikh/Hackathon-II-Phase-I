@@ -46,7 +46,7 @@ def display_main_menu() -> int:
     """Display the numbered main menu.
 
     Returns:
-        User's menu choice (1-8).
+        User's menu choice (1-9).
     """
     display_welcome()
 
@@ -58,7 +58,9 @@ def display_main_menu() -> int:
     menu.add_row("[yellow]5.[/yellow] [cyan]Complete Task[/cyan]")
     menu.add_row("[yellow]6.[/yellow] [cyan]Delete Task[/cyan]")
     menu.add_row("[yellow]7.[/yellow] [cyan]Search/Filter[/cyan]")
-    menu.add_row("[yellow]8.[/yellow] [cyan]Quit[/cyan]")
+    menu.add_row("[yellow]8.[/yellow] [cyan]Change Language (English / اردو)[/cyan]")
+    menu.add_row("[yellow]9.[/yellow] [cyan]Voice Command Mode (Experimental)[/cyan]")
+    menu.add_row("[yellow]10.[/yellow] [cyan]Quit[/cyan]")
 
     panel = Panel.fit(
         menu,
@@ -69,12 +71,12 @@ def display_main_menu() -> int:
 
     while True:
         try:
-            choice = console.input("[cyan]Enter your choice [1-8]: [/cyan]")
-            if choice in ("1", "2", "3", "4", "5", "6", "7", "8"):
+            choice = console.input("[cyan]Enter your choice [1-10]: [/cyan]")
+            if choice in ("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"):
                 return int(choice)
-            console.print("[red]Invalid choice. Please enter 1-8.[/red]")
+            console.print("[red]Invalid choice. Please enter 1-10.[/red]")
         except (KeyboardInterrupt, EOFError):
-            return 8
+            return 10
 
 
 def display_tasks_table(tasks: list[Task], show_description: bool = False) -> None:
