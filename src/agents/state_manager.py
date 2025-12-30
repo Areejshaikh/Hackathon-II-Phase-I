@@ -12,6 +12,7 @@ Provides functions for:
 - get_next_id() - Generate next available ID
 """
 from typing import Optional
+from datetime import UTC, datetime
 from src.models import Task, TaskStatus, TaskPriority
 
 
@@ -132,7 +133,7 @@ def update_task(
     if tags is not None:
         task.tags = tags
 
-    task.updated_at = task._now_utc()
+    task.updated_at = datetime.now(UTC)
 
     return task
 
@@ -155,7 +156,7 @@ def toggle_task_status(task_id: int) -> Optional[Task]:
     else:
         task.status = TaskStatus.PENDING
 
-    task.updated_at = task._now_utc()
+    task.updated_at = datetime.now(UTC)
     return task
 
 
@@ -173,7 +174,7 @@ def complete_task(task_id: int) -> Optional[Task]:
         return None
 
     task.status = TaskStatus.COMPLETED
-    task.updated_at = task._now_utc()
+    task.updated_at = datetime.now(UTC)
     return task
 
 

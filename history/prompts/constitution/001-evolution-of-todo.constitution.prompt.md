@@ -86,7 +86,7 @@ Created comprehensive project constitution at `.specify/memory/constitution.md` 
 - 🧪 Tests: N/A - governance document
 - 📁 Files: `.specify/memory/constitution.md` (constitution document)
 - 🔁 Next prompts: `/sp.specify` to create feature specification for Phase I implementation
-- 🧠 Reflection: Constitution captures multi-agent architecture, phased development approach, and Urdu i18n support as key differentiators
+- 🧠 Reflection: Constitution captures multi-agent architecture, phased development approach, and  i18n support as key differentiators
 
 ## Evaluation notes (flywheel)
 

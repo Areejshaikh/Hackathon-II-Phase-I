@@ -208,3 +208,16 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+
+---
+
+## Active Technologies
+
+- Python 3.11+ + rich (master branch)
+- JSON file persistence (tasks.json)
+
+## Recent Changes
+
+- master: Added todo-app Phase-I plan with 5-agent architecture
+
+**Last updated**: 2025-12-30

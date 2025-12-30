@@ -1,55 +1,99 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Todo CLI Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Multi-Agent Architecture
+The system MUST employ a modular multi-agent architecture where each agent has a single, well-defined responsibility. Agents communicate through well-defined interfaces and cannot directly access each other's internal state. This ensures maintainability, testability, and extensibility.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+**Rationale**: Separating concerns allows independent development and testing of each component. Adding new features becomes easier when each agent can be extended without affecting others.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. In-Memory First with JSON Persistence
+The system MUST operate primarily on in-memory data structures for performance, with JSON files serving as the authoritative persistence layer. All state changes MUST be immediately reflected in memory and asynchronously persisted to disk.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+**Rationale**: In-memory operations provide instant feedback for CLI interactions. JSON persistence ensures human-readable storage, easy debugging, and simple backup/restore operations without requiring external database infrastructure.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. Test-First Development (NON-NEGOTIABLE)
+TDD MUST be followed: Tests written → User approved → Tests fail → Then implement. The Red-Green-Refactor cycle is strictly enforced for all new features. Each agent MUST have comprehensive unit tests before integration.
 
-### [PRINCIPLE_6_NAME]
+**Rationale**: Tests serve as living documentation and prevent regressions. Writing tests first ensures the implementation is testable by design and meets the specified requirements.
 
+### IV. CLI-First Interface
+Every feature MUST be accessible via command-line interface. The CLI MUST provide clear, colored output with keyboard navigation support. Text-based interaction protocols MUST be followed: stdin/args → stdout for results, stderr for errors.
 
-[PRINCIPLE__DESCRIPTION]
+**Rationale**: CLI tools are portable, scriptable, and developer-friendly. A text-based interface ensures the tool works in any terminal and can be automated through scripts.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### V. Progressive Enhancement
+Advanced features (voice commands, i18n, recurring tasks) MUST be architected from the start but not over-engineered. Core functionality MUST be complete and stable before advanced features are implemented. Each phase builds incrementally on the previous.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+**Rationale**: YAGNI (You Aren't Gonna Need It) principles prevent premature complexity. Starting simple and adding features incrementally reduces risk and ensures each addition is justified by actual user need.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+### VI. Observability and Debugging
+The system MUST provide structured logging for all operations. Error messages MUST be actionable and include context. All file I/O operations MUST report success/failure with clear status indicators.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+**Rationale**: CLI tools often run in automation where logs are the only visibility. Clear logging enables troubleshooting without requiring interactive debugging sessions.
+
+## Project Structure
+
+The codebase MUST follow this structure:
+
+```text
+.claude/
+├── agents/              # Agent definitions (todo-main-agent, etc.)
+└── skills/              # Skill definitions (task_crud_skill, etc.)
+
+src/
+├── main.py              # Entry point
+├── models/              # Data models (Task, etc.)
+├── agents/              # Agent implementations
+└── utils/               # Utility functions
+
+tasks.json               # Persistent task storage (JSON format)
+pyproject.toml           # Python project configuration
+```
+
+**Rationale**: This structure separates concerns between configuration/agents (`.claude/`), source code (`src/`), and data (`tasks.json`). It enables clean imports and clear module boundaries.
+
+## Phase Definition
+
+### Phase I: Foundation
+- In-memory task storage with JSON file persistence
+- Multi-agent architecture with specialized agents
+- CLI interface with colored output
+- Basic CRUD operations: add, list, update, delete, toggle status
+- Task filtering and search capabilities
+- Simple priority and due date support
+
+### Phase II: Advanced Features
+- Recurring tasks (daily, weekly, monthly)
+- Advanced reminders and notifications
+- Task dependencies and blocking states
+- Enhanced scheduling capabilities
+
+### Phase III: Internationalization
+- Multi-language support with focus on Urdu
+- RTL text direction for Urdu/Arabic
+- Locale-specific date/number formatting
+- User-selectable language preferences
+
+### Phase IV: Voice Commands
+- Speech recognition integration
+- Voice-based task creation and management
+- Text-to-speech feedback
+- Multi-language voice support
+
+**Rationale**: Phased development ensures each major feature set is complete and stable before adding complexity. This approach minimizes technical debt and allows user feedback to shape future phases.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other development practices. All pull requests and code reviews MUST verify compliance with these principles.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Amendment Procedure**:
+1. Changes MUST be documented with clear rationale
+2. Breaking changes to agent interfaces require migration plan
+3. Version bumps follow semantic versioning: MAJOR for principle changes, MINOR for additions, PATCH for clarifications
+
+**Compliance**: The `/sp.analyze` command MUST verify constitution compliance before features are marked complete. Complexity that violates these principles MUST be justified in the plan document.
+
+**Guidance**: Use `.claude/commands/` for runtime development guidance and agent-specific instructions.
+
+**Version**: 1.0.0 | **Ratified**: 2025-12-30 | **Last Amended**: 2025-12-30

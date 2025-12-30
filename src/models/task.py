@@ -6,7 +6,7 @@ Defines:
 - Task: Dataclass representing a single todo item
 """
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, UTC
 from typing import Optional
 from enum import Enum
 
@@ -47,8 +47,8 @@ class Task:
     description: Optional[str] = None
     priority: Optional[TaskPriority] = None
     tags: Optional[list[str]] = None
-    created_at: datetime = field(default_factory=datetime.utcnow)
-    updated_at: datetime = field(default_factory=datetime.utcnow)
+    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
+    updated_at: datetime = field(default_factory=lambda: datetime.now(UTC))
 
     def to_dict(self) -> dict:
         """Convert Task to JSON-serializable dictionary.
@@ -88,7 +88,3 @@ class Task:
             updated_at=datetime.fromisoformat(data["updated_at"].rstrip("Z")),
         )
 
-    @staticmethod
-    def _now_utc() -> datetime:
-        """Get current UTC time."""
-        return datetime.utcnow()

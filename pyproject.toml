@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "todo-app"
 version = "0.1.0"
 description = "A pure CLI Todo application in Python with JSON persistence"
-readme = "README.md"
+# readme = "README.md"  # Optional: remove if not needed
 requires-python = ">=3.11"
 dependencies = [
     "rich>=13.0.0",
